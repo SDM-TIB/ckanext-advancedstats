@@ -1,0 +1,15 @@
+.homepage .module-stats {
+  margin-top: 0;
+}
+
+.homepage .module-stats .card ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.homepage .module-stats .card ul li {
+  width: 20% !important;
+  text-align: center;
+  color: var(--bs-blue, #206b82);
+}
