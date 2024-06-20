@@ -3,6 +3,13 @@
 # Advanced Stats
 
 `ckanext-advancedstats` is a CKAN plugin that adds additional statistics about the CKAN instance to the landing page.
+Currently, the plugin displays the following statistics:
+
+- number of datasets
+- number of organizations
+- number of groups
+- number of resources
+- number of Jupyter notebooks
 
 ## Installation
 
@@ -34,3 +41,4 @@ If you are interested in what has changed, check out the [changelog](CHANGELOG.m
 ## License
 
 `ckanext-advancedstats` is licensed under AGPL-3.0, see the [license file](LICENSE).
+
