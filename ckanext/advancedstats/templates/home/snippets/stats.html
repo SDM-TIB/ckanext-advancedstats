@@ -37,6 +37,13 @@
         <strong>{{ h.SI_number_span(stats.jupyter_count) }}</strong>
         {{ _('Jupyter notebook') if stats.jupyter_count == 1 else _('Jupyter notebooks') }}
       </li>
+      {% if stats.triples | int >= 0 %}
+      <li>
+        <i class="fa fa-project-diagram fa-3x"></i><br>
+        <strong>{{ h.SI_number_span(stats.triples) }}</strong>
+        {{ _('RDF triple') if stats.triples == 1 else _('RDF triples') }}
+      </li>
+      {% endif %}
       {% endblock %}
     </ul>
   </div>

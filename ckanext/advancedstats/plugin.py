@@ -1,12 +1,22 @@
 from logging import getLogger
 
-import ckan.plugins as p
 import ckan.logic as logic
-import ckan.plugins.toolkit as toolkit
 import ckan.model as model
+import ckan.plugins as p
+import ckan.plugins.toolkit as toolkit
+from SPARQLWrapper import SPARQLWrapper, JSON
+from ckan.common import config
 from ckan.lib.plugins import DefaultTranslation
 
 log = getLogger(__name__)
+
+kg_url = config.get('ckanext.advancedstats.kgurl', None)
+if kg_url is None:
+    sparql = None
+else:
+    sparql = SPARQLWrapper(config.get('ckanext.advancedstats.kgurl', ''))
+    sparql.setReturnFormat(JSON)
+    sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
 
 
 def get_advanced_site_statistics():
@@ -26,6 +36,17 @@ def get_advanced_site_statistics():
     stats['resource_count'] = len(q_res.all())
     stats['jupyter_count'] = len(q_res.filter(getattr(model.Resource, 'url').ilike('%' + '.ipynb')).all())
 
+    if sparql is not None:
+        stats['triples'] = 0
+        try:
+            res = sparql.queryAndConvert()
+            for r in res['results']['bindings']:
+                stats['triples'] = r['count']['value']
+        except Exception:
+            pass
+    else:
+        stats['triples'] = -1
+    log.info('The number of triples: ' + str(stats['triples']))
     return stats
 
 

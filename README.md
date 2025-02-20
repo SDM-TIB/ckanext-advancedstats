@@ -10,6 +10,10 @@ Currently, the plugin displays the following statistics:
 - number of groups
 - number of resources
 - number of Jupyter notebooks
+- number of RDF triples
+
+The number of RDF triples corresponds to the number of triples in the knowledge graph serving the metadata of the CKAN instance.
+Such a knowledge graph can be maintained with the extension `ckanext-kgcreation` [(https://github.com/SDM-TIB/ckanext-kgcreation)](https://github.com/SDM-TIB/ckanext-kgcreation).
 
 ## Installation
 
@@ -22,6 +26,12 @@ pip install -r ./ckanext-advancedstats/requirements.txt
 ```
 
 After installing the plugin, add `advancedstats` to the plugins in your `ckan.ini`.
+
+If you want to include the number of RDF triples in the knowledge graph containing the metadata of your CKAN instance, set `ckanext.advancedstats.kgurl` to the URL where your knowledge graph answers SPARQL queries, e.g.:
+
+```ini
+ckanext.advancedstats.kgurl = https://www.your-site.tld/kg/sparql
+```
 
 ## Usage
 
