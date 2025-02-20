@@ -1,12 +1,12 @@
 from logging import getLogger
 
-import ckan.logic as logic
-import ckan.model as model
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
 from SPARQLWrapper import SPARQLWrapper, JSON
 from ckan.common import config
 from ckan.lib.plugins import DefaultTranslation
+
+from .tasks import Scheduler, get_value
 
 log = getLogger(__name__)
 
@@ -20,40 +20,24 @@ else:
 
 
 def get_advanced_site_statistics():
-    stats = {}
-    # The following stats are replicated using the logic from CKAN 2.10
-    stats['dataset_count'] = logic.get_action('package_search')({}, {"rows": 1})['count']
-    stats['group_count'] = len(logic.get_action('group_list')({}, {}))
-    stats['organization_count'] = len(logic.get_action('organization_list')({}, {}))
-
-    # The following stats are added by ckanext-advancedstats
-    q_res = model.Session.query(model.Resource) \
-        .join(model.Package) \
-        .filter(model.Package.state == 'active') \
-        .filter(model.Package.private == False) \
-        .filter(model.Resource.state == 'active') \
-
-    stats['resource_count'] = len(q_res.all())
-    stats['jupyter_count'] = len(q_res.filter(getattr(model.Resource, 'url').ilike('%' + '.ipynb')).all())
-
-    if sparql is not None:
-        stats['triples'] = 0
-        try:
-            res = sparql.queryAndConvert()
-            for r in res['results']['bindings']:
-                stats['triples'] = r['count']['value']
-        except Exception:
-            pass
-    else:
-        stats['triples'] = -1
-    log.info('The number of triples: ' + str(stats['triples']))
-    return stats
+    return {
+        'dataset_count': get_value('ckanext.advancedstats.dataset_count', -1),
+        'group_count': get_value('ckanext.advancedstats.group_count', -1),
+        'organization_count': get_value('ckanext.advancedstats.organization_count', -1),
+        'resource_count': get_value('ckanext.advancedstats.resource_count', -1),
+        'jupyter_count': get_value('ckanext.advancedstats.jupyter_count', -1),
+        'triples': get_value('ckanext.advancedstats.triples', -1)
+    }
 
 
 class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.ITemplateHelpers)
     p.implements(p.ITranslation)
+
+    def __init__(self, *args, **kwargs):
+        self.scheduler = Scheduler()
+        super().__init__(*args, **kwargs)
 
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
