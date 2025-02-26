@@ -2,21 +2,12 @@ from logging import getLogger
 
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
-from SPARQLWrapper import SPARQLWrapper, JSON
-from ckan.common import config
 from ckan.lib.plugins import DefaultTranslation
 
 from .tasks import Scheduler, get_value
 
 log = getLogger(__name__)
 
-kg_url = config.get('ckanext.advancedstats.kgurl', None)
-if kg_url is None:
-    sparql = None
-else:
-    sparql = SPARQLWrapper(config.get('ckanext.advancedstats.kgurl', ''))
-    sparql.setReturnFormat(JSON)
-    sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
 
 
 def get_advanced_site_statistics():
