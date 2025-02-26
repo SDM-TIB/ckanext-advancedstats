@@ -46,5 +46,8 @@
       {% endif %}
       {% endblock %}
     </ul>
+    <div style="margin-top: 20px; color: gray; text-align: right">
+      {{ _('Last updated:') ~ ' ' ~ stats.datetime ~ ' ' ~ _('UTC') if stats.datetime != '-1' else _('Statistics not yet collected.')}}
+    </div>
   </div>
 </div>
