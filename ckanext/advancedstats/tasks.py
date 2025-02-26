@@ -20,7 +20,7 @@ kg_url = os.getenv('CKANEXT__ADVANCEDSTATS__KGURL', None)
 if kg_url is None:
     sparql = None
 else:
-    sparql = SPARQLWrapper(config.get('ckanext.advancedstats.kgurl', ''))
+    sparql = SPARQLWrapper(kg_url)
     sparql.setReturnFormat(JSON)
     sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
 
@@ -83,8 +83,8 @@ def update_stats():
                     res = sparql.queryAndConvert()
                     for r in res['results']['bindings']:
                         triples = r['count']['value']
-                except Exception:
-                    pass
+                except Exception as e:
+                    log.exception(e)
             else:
                 triples = -1
             store_value('ckanext.advancedstats.triples', triples)
