@@ -27,16 +27,24 @@ pip install -r ./ckanext-advancedstats/requirements.txt
 
 After installing the plugin, add `advancedstats` to the plugins in your `ckan.ini`.
 
-If you want to include the number of RDF triples in the knowledge graph containing the metadata of your CKAN instance, set `ckanext.advancedstats.kgurl` to the URL where your knowledge graph answers SPARQL queries, e.g.:
+If you want to include the number of RDF triples in the knowledge graph containing the metadata of your CKAN instance, set the environment variable `CKANEXT__ADVANCEDSTATS__KGURL` to the URL where your knowledge graph answers SPARQL queries, e.g.:
 
-```ini
-ckanext.advancedstats.kgurl = https://www.your-site.tld/kg/sparql
+```bash
+CKANEXT__ADVANCEDSTATS__KGURL=https://www.your-site.tld/kg/sparql
 ```
+
+`ckanext-advancedstats` stores the statistics in Redis and updates them periodically. The default interval is 30 minutes and can be configured via the environment variable `CKANEXT__ADVANCEDSTATS__INTERVAL`, e.g.:
+
+```bash
+CKANEXT__ADVANCEDSTATS__INTERVAL=30
+```
+
+The connection string for Redis is read from the CKAN configuration option `CKAN_REDIS_URL` which should already be set in most CKAN instances.
 
 ## Usage
 
 If you are already displaying the default stats, then `ckanext-advancedstats` is a drop-in replacement, i.e., the plugin will work out-of-the-box and there is nothing you need to do.
-In the case you are not yet displaying the stats or you are using a customized landing page, you can add the stats by including the following code in your landing page template.
+In the case you are not yet displaying the stats, or you are using a customized landing page, you can add the stats by including the following code in your landing page template.
 
 ```
 {% block stats %}
