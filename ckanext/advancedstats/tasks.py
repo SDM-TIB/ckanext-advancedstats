@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 from logging import getLogger
 from urllib.parse import urlparse
@@ -15,7 +16,7 @@ log = getLogger(__name__)
 redis_url = config.get('CKAN_REDIS_URL', 'redis://localhost:6379/0')
 redis_client = redis.from_url(redis_url)
 
-kg_url = config.get('ckanext.advancedstats.kgurl', None)
+kg_url = os.getenv('CKANEXT__ADVANCEDSTATS__KGURL', None)
 if kg_url is None:
     sparql = None
 else:
@@ -23,7 +24,7 @@ else:
     sparql.setReturnFormat(JSON)
     sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
 
-interval = int(config.get('ckanext.advancedstats.interval', 30))
+interval = int(os.getenv('CKANEXT__ADVANCEDSTATS__INTERVAL', 30))
 
 
 def store_value(key, value):
