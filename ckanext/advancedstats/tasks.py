@@ -23,6 +23,8 @@ else:
     sparql.setReturnFormat(JSON)
     sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
 
+interval = int(config.get('ckanext.advancedstats.interval', 30))
+
 
 def store_value(key, value):
     try:
@@ -114,7 +116,7 @@ class Scheduler:
             scheduler = BackgroundScheduler(jobstores=jobstores, job_defaults={'coalesce': True, 'max_instances': 1}, timezone='UTC')
             scheduler.start()
             try:
-                scheduler.add_job(update_stats, 'interval', minutes=30, next_run_time=datetime.utcnow() + timedelta(minutes=1), id='ckanext.advancedstats:update_stats')
+                scheduler.add_job(update_stats, 'interval', minutes=interval, next_run_time=datetime.utcnow() + timedelta(minutes=1), id='ckanext.advancedstats:update_stats')
             except ConflictingIdError:
                 pass
 
