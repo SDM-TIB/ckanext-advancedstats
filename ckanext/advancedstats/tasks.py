@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from logging import getLogger
 from urllib.parse import urlparse
 
@@ -113,7 +113,7 @@ class Scheduler:
             scheduler = BackgroundScheduler(jobstores=jobstores, job_defaults={'coalesce': True, 'max_instances': 1}, timezone='UTC')
             scheduler.start()
             try:
-                scheduler.add_job(update_stats, 'interval', minutes=30, next_run_time=datetime.utcnow(), id='ckanext.advancedstats:update_stats')
+                scheduler.add_job(update_stats, 'interval', minutes=30, next_run_time=datetime.utcnow() + timedelta(minutes=1), id='ckanext.advancedstats:update_stats')
             except ConflictingIdError:
                 pass
 
