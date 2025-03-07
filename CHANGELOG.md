@@ -1,5 +1,8 @@
 # Changelog
 
+# v0.3.0 - 2025-03-07
+- Display the time of last update in the user's local timezone
+
 # v0.2.0 - 2025-02-27
 - Add number of knowledge graph triples
 - Store the statistics in Redis
