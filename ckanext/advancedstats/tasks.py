@@ -88,7 +88,7 @@ def update_stats():
             else:
                 triples = -1
             store_value('ckanext.advancedstats.triples', triples)
-            store_value('ckanext.advancedstats.datetime', datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'))
+            store_value('ckanext.advancedstats.datetime', datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
         finally:
             import time
             time.sleep(20)  # wait a moment before releasing the lock in order to catch some of the other workers

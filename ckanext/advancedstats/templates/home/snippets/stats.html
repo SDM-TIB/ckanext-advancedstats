@@ -47,7 +47,36 @@
       {% endblock %}
     </ul>
     <div style="margin-top: 20px; color: gray; text-align: right">
-      {{ _('Last updated:') ~ ' ' ~ stats.datetime ~ ' ' ~ _('UTC') if stats.datetime != '-1' else _('Statistics not yet collected.')}}
+      <span id="last-updated" {% if stats.datetime != '-1' %}data-utc="{{ stats.datetime }}"{% else %}data-utc=""{% endif %}>
+        {% if stats.datetime == '-1' %}
+          {{ _('Statistics not yet collected.') }}
+        {% else %}
+          Loading...
+        {% endif %}
+      </span>
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const lastUpdatedElement = document.getElementById('last-updated'),
+          utcDateTime = lastUpdatedElement.getAttribute('data-utc');
+
+    if (utcDateTime) {
+        const date = new Date(utcDateTime),
+              options = {
+                  year: 'numeric',
+                  month: '2-digit',  // Ensures month is always 2 digits
+                  day: '2-digit',    // Ensures day is always 2 digits
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  timeZoneName: 'short'
+              },
+              formatter = new Intl.DateTimeFormat(undefined, options),
+              localDateString = formatter.format(date);
+        lastUpdatedElement.textContent = "{{ _('Last updated:') }} " + localDateString;
+    }
+});
+</script>
