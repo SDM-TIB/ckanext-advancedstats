@@ -10,7 +10,6 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from apscheduler.jobstores.base import ConflictingIdError
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.background import BackgroundScheduler
-from ckan.common import config
 
 log = getLogger(__name__)
 redis_url = os.getenv('CKAN_REDIS_URL', 'redis://localhost:6379/0')
