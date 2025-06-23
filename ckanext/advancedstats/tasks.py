@@ -118,7 +118,12 @@ class Scheduler:
             try:
                 scheduler.add_job(update_stats, 'interval', minutes=interval, next_run_time=datetime.utcnow(), id='ckanext.advancedstats:update_stats')
             except ConflictingIdError:
-                pass
+                from datetime import timedelta
+                job = scheduler.get_job('ckanext.advancedstats:update_stats', 'default')
+                old_delta = job.trigger.interval
+                new_delta = timedelta(minutes=interval)
+                if old_delta != new_delta:
+                    scheduler.reschedule_job('ckanext.advancedstats:update_stats', 'default', trigger='interval', minutes=interval)
 
     def __new__(cls, *args, **kwargs):
         if not Scheduler.instance:
