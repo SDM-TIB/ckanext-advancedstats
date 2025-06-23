@@ -1,5 +1,13 @@
 # Changelog
 
+# v0.4.0 - 2025-06-23
+- Read values from environment instead of configuration
+  - Hence, `CKAN_REDIS_URL` is now read from the environment variables instead of the CKAN configuration
+- Use different RDF triple icon based on CKAN version
+- Specify compatible dependency versions
+- Add capability to update job interval
+- Minor changes to the statistics template
+
 # v0.3.0 - 2025-03-07
 - Display the time of last update in the user's local timezone
 
