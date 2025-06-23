@@ -13,7 +13,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from ckan.common import config
 
 log = getLogger(__name__)
-redis_url = config.get('CKAN_REDIS_URL', 'redis://localhost:6379/0')
+redis_url = os.getenv('CKAN_REDIS_URL', 'redis://localhost:6379/0')
 redis_client = redis.from_url(redis_url)
 
 kg_url = os.getenv('CKANEXT__ADVANCEDSTATS__KGURL', None)
