@@ -3,8 +3,7 @@
 
 <div class="module-stats">
   <div class="card box">
-    <h3>{{ _('{0} statistics').format(g.site_title) }}</h3>
-    <ul>
+    <ul style="margin-top: 10px;">
       {% block stats_group %}
       <li>
         <a href="{{ h.url_for('dataset.search') }}">
@@ -46,7 +45,7 @@
       {% endif %}
       {% endblock %}
     </ul>
-    <div style="margin-top: 20px; color: gray; text-align: right">
+    <div style="color: gray; text-align: right; padding-right: 20px;">
       <span id="last-updated" {% if stats.datetime != '-1' %}data-utc="{{ stats.datetime }}"{% else %}data-utc=""{% endif %}>
         {% if stats.datetime == '-1' %}
           {{ _('Statistics not yet collected.') }}
