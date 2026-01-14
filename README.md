@@ -52,6 +52,15 @@ In the case you are not yet displaying the stats, or you are using a customized 
 {% endblock %}
 ```
 
+## Known Issues
+`APScheduler` is experiencing issues when a scheduled job execution is missed.
+Hence, the statistics are no longer updated.
+One way to get the job executed correctly again is to delete the following keys from redis which might affect other jobs as well.
+
+- `update_stats_lock` - the lock used for `ckanext-advancedstats`
+- `apscheduler.run_times` - job run times for `APScheduler`
+- `apscheduler.jobs` - the jobs managed by `APScheduler`
+
 ## Changelog
 
 If you are interested in what has changed, check out the [changelog](CHANGELOG.md).
