@@ -50,7 +50,7 @@ def get_value(key, default_value=None):
 
 
 def acquire_lock(lock_name):
-    lock = redis_client.lock(lock_name)
+    lock = redis_client.lock(lock_name, timeout=30)
     acquired = lock.acquire(blocking=False)
     return acquired, lock
 
@@ -103,27 +103,29 @@ class Scheduler:
     class __Scheduler:
         def __init__(self):
             redis_url_parsed = urlparse(redis_url)
-            jobstores = {
-                'default': RedisJobStore(
-                    jobs_key='apscheduler.jobs',
-                    run_times_key='apscheduler.run_times',
-                    host=redis_url_parsed.hostname,
-                    port=redis_url_parsed.port,
-                    db=int(redis_url_parsed.path.replace('/', ''))
-                )
-            }
 
-            scheduler = BackgroundScheduler(jobstores=jobstores, job_defaults={'coalesce': True, 'max_instances': 1}, timezone='UTC')
-            scheduler.start()
+            scheduler = BackgroundScheduler(jobstores={
+                                                'default': RedisJobStore(
+                                                    jobs_key='apscheduler.jobs',
+                                                    run_times_key='apscheduler.run_times',
+                                                    host=redis_url_parsed.hostname,
+                                                    port=redis_url_parsed.port,
+                                                    db=int(redis_url_parsed.path.replace('/', ''))
+                                                )
+                                            },
+                                            job_defaults={
+                                                'coalesce': True,
+                                                'max_instances': 1,
+                                                'misfire_grace_time': None
+                                            },
+                                            timezone='UTC')
+
+            scheduler.start(paused=True)
             try:
                 scheduler.add_job(update_stats, 'interval', minutes=interval, next_run_time=datetime.utcnow(), id='ckanext.advancedstats:update_stats')
             except ConflictingIdError:
-                from datetime import timedelta
-                job = scheduler.get_job('ckanext.advancedstats:update_stats', 'default')
-                old_delta = job.trigger.interval
-                new_delta = timedelta(minutes=interval)
-                if old_delta != new_delta:
-                    scheduler.reschedule_job('ckanext.advancedstats:update_stats', 'default', trigger='interval', minutes=interval)
+                pass
+            scheduler.resume()
 
     def __new__(cls, *args, **kwargs):
         if not Scheduler.instance:
