@@ -1,5 +1,8 @@
 # Changelog
 
+# v0.4.1 - 2026-01-22
+- Fix issue with unreleased locks
+
 # v0.4.0 - 2025-06-23
 - Read values from environment instead of configuration
   - Hence, `CKAN_REDIS_URL` is now read from the environment variables instead of the CKAN configuration
