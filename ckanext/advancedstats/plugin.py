@@ -9,7 +9,6 @@ from .tasks import Scheduler, get_value
 log = getLogger(__name__)
 
 
-
 def get_advanced_site_statistics():
     return {
         'dataset_count': get_value('ckanext.advancedstats.dataset_count', -1),
@@ -20,6 +19,13 @@ def get_advanced_site_statistics():
         'triples': get_value('ckanext.advancedstats.triples', -1),
         'datetime': get_value('ckanext.advancedstats.datetime', '-1')
     }
+
+
+def get_kg_triple_icon():
+    if toolkit.check_ckan_version(min_version='2.10'):
+        return 'project-diagram'
+    else:
+        return 'sitemap'
 
 
 class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
@@ -37,5 +43,6 @@ class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
 
     def get_helpers(self):
         return {
-            'advanced_stats': get_advanced_site_statistics
+            'advanced_stats': get_advanced_site_statistics,
+            'kg_triple_icon': get_kg_triple_icon
         }

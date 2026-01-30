@@ -38,7 +38,7 @@
       </li>
       {% if stats.triples | int >= 0 %}
       <li>
-        <i class="fa {% if h.check_ckan_version(min_version='2.10') %}fa-project-diagram{% else %}fa-sitemap{% endif %} fa-3x"></i><br>
+        <i class="fa fa-{{ h.kg_triple_icon() }} fa-3x"></i><br>
         <strong>{{ h.SI_number_span(stats.triples) }}</strong>
         {{ _('RDF triple') if stats.triples == 1 else _('RDF triples') }}
       </li>
