@@ -1,5 +1,8 @@
 # Changelog
 
+# v0.4.2 - 2026-01-30
+- Fix issue with missing helper function in older CKAN versions
+
 # v0.4.1 - 2026-01-22
 - Fix issue with unreleased locks
 
