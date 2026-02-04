@@ -1,15 +1,15 @@
 # Translations template for ckanext-advancedstats.
-# Copyright (C) 2024 ORGANIZATION
+# Copyright (C) 2026 ORGANIZATION
 # This file is distributed under the same license as the ckanext-advancedstats
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ckanext-advancedstats 0.1.0\n"
+"Project-Id-Version: ckanext-advancedstats 0.5.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-06-20 14:24+0200\n"
+"POT-Creation-Date: 2026-02-04 11:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,46 +18,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:6
-msgid "{0} statistics"
-msgstr ""
-
-#: ckanext/advancedstats/templates/home/snippets/stats.html:13
+#: ckanext/advancedstats/templates/home/snippets/stats.html:12
 msgid "dataset"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:13
+#: ckanext/advancedstats/templates/home/snippets/stats.html:12
 msgid "datasets"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:20
+#: ckanext/advancedstats/templates/home/snippets/stats.html:19
+msgid "user"
+msgstr ""
+
+#: ckanext/advancedstats/templates/home/snippets/stats.html:19
+msgid "users"
+msgstr ""
+
+#: ckanext/advancedstats/templates/home/snippets/stats.html:26
 msgid "organization"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:20
+#: ckanext/advancedstats/templates/home/snippets/stats.html:26
 msgid "organizations"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:27
+#: ckanext/advancedstats/templates/home/snippets/stats.html:33
 msgid "group"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:27
+#: ckanext/advancedstats/templates/home/snippets/stats.html:33
 msgid "groups"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:33
+#: ckanext/advancedstats/templates/home/snippets/stats.html:39
 msgid "resource"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:33
+#: ckanext/advancedstats/templates/home/snippets/stats.html:39
 msgid "resources"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:38
+#: ckanext/advancedstats/templates/home/snippets/stats.html:45
 msgid "Jupyter notebook"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:38
+#: ckanext/advancedstats/templates/home/snippets/stats.html:45
 msgid "Jupyter notebooks"
 msgstr ""
+
+#: ckanext/advancedstats/templates/home/snippets/stats.html:52
+msgid "RDF triple"
+msgstr ""
+
+#: ckanext/advancedstats/templates/home/snippets/stats.html:52
+msgid "RDF triples"
+msgstr ""
+
+#: ckanext/advancedstats/templates/home/snippets/stats.html:60
+msgid "Statistics not yet collected."
+msgstr ""
+
+#: ckanext/advancedstats/templates/home/snippets/stats.html:87
+msgid "Last updated:"
+msgstr ""
+
