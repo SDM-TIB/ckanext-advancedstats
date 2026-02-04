@@ -18,7 +18,7 @@ Such a knowledge graph can be maintained with the extension `ckanext-kgcreation`
 
 ## Installation
 
-As usual for CKAN extensions, you can install `ckanext-fedorkg` as follows:
+As usual for CKAN extensions, you can install `ckanext-advancedstats` as follows:
 
 ```bash
 git clone git@github.com:SDM-TIB/ckanext-advancedstats.git
