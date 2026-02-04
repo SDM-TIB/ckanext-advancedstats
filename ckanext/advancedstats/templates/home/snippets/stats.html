@@ -13,6 +13,13 @@
         </a>
       </li>
       <li>
+        <a href="{{ h.url_for('user.index') }}">
+          <i class="fa fa-user fa-3x"></i><br>
+          <strong>{{ h.SI_number_span(stats.user_count) }}</strong>
+          {{ _('user') if stats.user_count == 1 else _('users') }}
+        </a>
+      </li>
+      <li>
         <a href="{{ h.url_for('organization.index') }}">
           <i class="fa fa-building fa-3x"></i><br>
           <strong>{{ h.SI_number_span(stats.organization_count) }}</strong>

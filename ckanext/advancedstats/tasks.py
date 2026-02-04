@@ -76,6 +76,11 @@ def update_stats():
             store_value('ckanext.advancedstats.resource_count', len(q_res.all()))
             store_value('ckanext.advancedstats.jupyter_count', len(q_res.filter(getattr(model.Resource, 'url').ilike('%' + '.ipynb')).all()))
 
+            users = model.Session.query(model.User) \
+                .filter(model.User.state == 'active') \
+                .all()
+            store_value('ckanext.advancedstats.user_count', len(users))
+
             if sparql is not None:
                 triples = 0
                 try:

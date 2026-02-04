@@ -17,7 +17,8 @@ def get_advanced_site_statistics():
         'resource_count': get_value('ckanext.advancedstats.resource_count', -1),
         'jupyter_count': get_value('ckanext.advancedstats.jupyter_count', -1),
         'triples': get_value('ckanext.advancedstats.triples', -1),
-        'datetime': get_value('ckanext.advancedstats.datetime', '-1')
+        'datetime': get_value('ckanext.advancedstats.datetime', '-1'),
+        'user_count': get_value('ckanext.advancedstats.user_count', -1)
     }
 
 

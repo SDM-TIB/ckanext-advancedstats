@@ -6,6 +6,7 @@
 Currently, the plugin displays the following statistics:
 
 - number of datasets
+- number of active users
 - number of organizations
 - number of groups
 - number of resources
