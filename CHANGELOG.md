@@ -1,5 +1,11 @@
 # Changelog
 
+# v0.5.0 - 2026-02-04
+- Change icon for groups
+- Add active user count
+- Add link to datasets containing Jupyter notebooks
+- Defer initial update by one minute
+
 # v0.4.2 - 2026-01-30
 - Fix issue with missing helper function in older CKAN versions
 
