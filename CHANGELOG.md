@@ -1,5 +1,8 @@
 # Changelog
 
+# v0.5.1 - 2026-02-05
+- Update German translation
+
 # v0.5.0 - 2026-02-04
 - Change icon for groups
 - Add active user count
