@@ -36,7 +36,7 @@
                 </div>
                 <div class="checkbox-item">
                     <input type="checkbox" id="feature7" name="features" value="triples"{% if 'triples' in stats %} checked{% endif %}>
-                    <label for="feature7">{% trans %}Number of RDF Triples (requires an extension like ckanext-kgcreation){% endtrans %}</label>
+                    <label for="feature7">{% trans link=h.literal('<a href="https://github.com/SDM-TIB/ckanext-kgcreation" target="_blank">ckanext-kgcreation</a>') %}Number of RDF Triples (requires an extension like {{ link }}){% endtrans %}</label>
                 </div>
             </div>
             <input type="hidden" name="action" value="stats">
@@ -62,7 +62,7 @@
     <hr>
     <h2>{% trans %}Knowledge Graph URL{% endtrans %}</h2>
     <div>
-        {% trans %}Set the URL under which your knowledge graph is accessible. This requires an extension like ckanext-kgcreation.{% endtrans %}
+        {% trans link=h.literal('<a href="https://github.com/SDM-TIB/ckanext-kgcreation" target="_blank">ckanext-kgcreation</a>') %}Set the URL under which your knowledge graph is accessible. This requires an extension like {{ link }}.{% endtrans %}
         <form method="POST" action="{{ h.url_for('advancedstats_admin.admin') }}">
             {{ form.input('kg_url', label=_('Knowledge Graph URL'), value=kg_url, placeholder=_('e.g., http://ldm_kg:8890/sparql'), is_required=true) }}
             <input type="hidden" name="action" value="kgurl">
@@ -83,7 +83,7 @@
             <p>{% trans %}Configuration options to manage the advanced stats.{% endtrans %}</p>
             <p><strong>{% trans %}Statistics{% endtrans %}:</strong> {% trans %}Select the statistics you would like to display in the main page.{% endtrans %}</p>
             <p><strong>{% trans %}Update Frequency{% endtrans %}:</strong> {% trans %}Set how often (in minutes) the statistics are updated.{% endtrans %}</p>
-            <p><strong>{% trans %}Knowledge Graph URL{% endtrans %}:</strong> {% trans %}Set the URL under which your knowledge graph is accessible. This requires an extension like ckanext-kgcreation.{% endtrans %}</p>
+            <p><strong>{% trans %}Knowledge Graph URL{% endtrans %}:</strong> {% trans link=h.literal('<a href="https://github.com/SDM-TIB/ckanext-kgcreation" target="_blank">ckanext-kgcreation</a>') %}Set the URL under which your knowledge graph is accessible. This requires an extension like {{ link }}.{% endtrans %}</p>
         </div>
     </div>
 {% endblock %}
