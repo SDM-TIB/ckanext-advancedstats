@@ -7,11 +7,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ckanext-advancedstats 0.1.0\n"
+"Project-Id-Version: ckanext-advancedstats 0.6.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-04 11:51+0100\n"
+"POT-Creation-Date: 2026-02-09 12:52+0100\n"
 "PO-Revision-Date: 2024-06-20 14:27+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Philipp D. Rohde <EMAIL@ADDRESS>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -20,70 +20,196 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.3\n"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:12
+#: ckanext/advancedstats/controller.py:29
+msgid "Need to be system administrator to administer."
+msgstr "Nur Systemadministratoren haben hier Zugriff."
+
+#: ckanext/advancedstats/controller.py:47
+msgid "Selected statistics has been updated successfully."
+msgstr "Ausgewählte Statistiken erfolgreich aktualisiert."
+
+#: ckanext/advancedstats/controller.py:49
+msgid "You need to select at least one statistic to be displayed."
+msgstr "Es muss mindestens eine anzuzeigende Statistik gewählt werden."
+
+#: ckanext/advancedstats/controller.py:64
+msgid ""
+"The update frequency was not updated due to an error rescheduling the "
+"background job."
+msgstr "Die Aktualisierungsfrequenz wurde aufgrund eines Fehlers beim erneuten Planen des Hintergrundjobs nicht aktualisiert."
+
+#: ckanext/advancedstats/controller.py:66
+msgid "Update frequency has been updated successfully."
+msgstr "Aktualisierungsfrequenz erfolgreich aktualisiert."
+
+#: ckanext/advancedstats/controller.py:68
+msgid ""
+"The update frequency is specified in full minutes. Please, provide input "
+"that can be parsed as an integer."
+msgstr "Die Aktualisierungsfrequenz wird in vollen Minuten angegeben. Bitte geben Sie einen Wert ein, der als Ganzzahl interpretiert werden kann."
+
+#: ckanext/advancedstats/controller.py:78
+msgid "Knowledge graph URL has been updated successfully."
+msgstr "URL des Wissensgraphen erfolgreich aktualisiert."
+
+#: ckanext/advancedstats/controller.py:81
+msgid "The knowledge graph is not accessible, the configuration was not updated."
+msgstr "Der Wissensgraph ist nicht erreichbar, die Konfiguration wurde nicht aktualisiert."
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:8
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:84
+msgid "Statistics"
+msgstr "Statistiken"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:10
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:84
+msgid "Select the statistics you would like to display in the main page."
+msgstr "Wählen Sie die Statistiken aus, die auf der Hauptseite angezeigt werden sollen."
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:15
+msgid "Number of Datasets"
+msgstr "Anzahl der Datensätze"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:19
+msgid "Number of Users"
+msgstr "Anzahl der Benuter"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:23
+msgid "Number of Organizations"
+msgstr "Anzahl der Organisationen"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:27
+msgid "Number of Groups"
+msgstr "Anzahl der Gruppen"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:31
+msgid "Number of Resources"
+msgstr "Anzahl der Ressourcen"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:35
+msgid "Number of Jupyter Notebooks"
+msgstr "Anzahl der Jupyter Notebooks"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:39
+#, python-format
+msgid "Number of RDF Triples (requires an extension like %(link)s)"
+msgstr "Anzahl der RDF-Tripel (erfordert eine Erweiterung wie %(link)s)"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:44
+msgid "Set statistics"
+msgstr "Statistiken aktualisieren"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:44
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:57
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:70
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:50
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:85
+msgid "Update Frequency"
+msgstr "Aktualisierungsfrequenz"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:52
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:85
+msgid "Set how often (in minutes) the statistics are updated."
+msgstr "Legen Sie fest, wie oft (in Minuten) die Statistiken aktualisiert werden."
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:54
+msgid "Update Frequency (in minutes)"
+msgstr "Aktualisierungsfrequenz (in Minuten)"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:54
+msgid "update frequency"
+msgstr "Aktualisierungsfrequenz"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:57
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:70
+msgid "Set update frequency"
+msgstr "Aktualisierungsfrequenz aktualisieren"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:63
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:67
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:86
+msgid "Knowledge Graph URL"
+msgstr "Wissensgraph-URL"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:65
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:86
+#, python-format
+msgid ""
+"Set the URL under which your knowledge graph is accessible. This requires"
+" an extension like %(link)s."
+msgstr "Legen Sie die URL fest, unter der Ihr Wissensgraph erreichbar ist. Dies erfordert eine Erweiterung wie %(link)s."
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:67
+msgid "e.g., http://ldm_kg:8890/sparql"
+msgstr "z.B. http://ldm_kg:8890/sparql"
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:83
+msgid "Configuration options to manage the advanced stats."
+msgstr "Konfigurationsoptionen zur Verwaltung der erweiterten Statistiken."
+
+#: ckanext/advancedstats/templates/home/snippets/stats.html:14
 msgid "dataset"
 msgstr "Datensatz"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:12
+#: ckanext/advancedstats/templates/home/snippets/stats.html:14
 msgid "datasets"
 msgstr "Datensätze"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:19
+#: ckanext/advancedstats/templates/home/snippets/stats.html:23
 msgid "user"
 msgstr "Benutzer"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:19
+#: ckanext/advancedstats/templates/home/snippets/stats.html:23
 msgid "users"
 msgstr "Benutzer"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:26
+#: ckanext/advancedstats/templates/home/snippets/stats.html:32
 msgid "organization"
 msgstr "Organisation"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:26
+#: ckanext/advancedstats/templates/home/snippets/stats.html:32
 msgid "organizations"
 msgstr "Organisationen"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:33
+#: ckanext/advancedstats/templates/home/snippets/stats.html:41
 msgid "group"
 msgstr "Gruppe"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:33
+#: ckanext/advancedstats/templates/home/snippets/stats.html:41
 msgid "groups"
 msgstr "Gruppen"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:39
+#: ckanext/advancedstats/templates/home/snippets/stats.html:49
 msgid "resource"
 msgstr "Ressource"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:39
+#: ckanext/advancedstats/templates/home/snippets/stats.html:49
 msgid "resources"
 msgstr "Ressourcen"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:45
+#: ckanext/advancedstats/templates/home/snippets/stats.html:57
 msgid "Jupyter notebook"
 msgstr "Jupyter Notebook"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:45
+#: ckanext/advancedstats/templates/home/snippets/stats.html:57
 msgid "Jupyter notebooks"
 msgstr "Jupyter Notebooks"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:52
+#: ckanext/advancedstats/templates/home/snippets/stats.html:65
 msgid "RDF triple"
 msgstr "RDF-Tripel"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:52
+#: ckanext/advancedstats/templates/home/snippets/stats.html:65
 msgid "RDF triples"
 msgstr "RDF-Tripel"
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:60
+#: ckanext/advancedstats/templates/home/snippets/stats.html:73
 msgid "Statistics not yet collected."
-msgstr "Statistiken noch nicht gesammelt."
+msgstr "Statistiken wurden noch nicht erfasst."
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:87
+#: ckanext/advancedstats/templates/home/snippets/stats.html:100
 msgid "Last updated:"
-msgstr "Letztes Update:"
-
-#~ msgid "{0} statistics"
-#~ msgstr "{0} Statistiken"
-
+msgstr "Letzte Aktualisierung:"
