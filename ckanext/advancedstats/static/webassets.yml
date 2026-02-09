@@ -2,3 +2,8 @@ main:
   output: advancedstats/%(version)s_advancedstats.css
   contents:
     - css/advancedstats.css
+
+admin-css:
+  output: advancedstats/%(version)s_advancedstats-admin.css
+  contents:
+    - css/advancedstats-admin.css

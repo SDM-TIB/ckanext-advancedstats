@@ -1,10 +1,12 @@
 {% set stats = h.advanced_stats() %}
+{% set selected = h.selected_stats() %}
 {% asset 'advancedstats/main' %}
 
 <div class="module-stats">
   <div class="card box">
     <ul style="margin-top: 10px;">
       {% block stats_group %}
+      {% if 'datasets' in selected %}
       <li>
         <a href="{{ h.url_for('dataset.search') }}">
           <i class="fa fa-database fa-3x"></i><br>
@@ -12,6 +14,8 @@
           {{ _('dataset') if stats.dataset_count == 1 else _('datasets') }}
         </a>
       </li>
+      {% endif %}
+      {% if 'users' in selected %}
       <li>
         <a href="{{ h.url_for('user.index') }}">
           <i class="fa fa-user fa-3x"></i><br>
@@ -19,6 +23,8 @@
           {{ _('user') if stats.user_count == 1 else _('users') }}
         </a>
       </li>
+      {% endif %}
+      {% if 'organizations' in selected %}
       <li>
         <a href="{{ h.url_for('organization.index') }}">
           <i class="fa fa-building fa-3x"></i><br>
@@ -26,6 +32,8 @@
           {{ _('organization') if stats.organization_count == 1 else _('organizations') }}
         </a>
       </li>
+      {% endif %}
+      {% if 'groups' in selected %}
       <li>
         <a href="{{ h.url_for('group.index') }}">
           <i class="fa fa-folder-open fa-3x"></i><br>
@@ -33,11 +41,15 @@
           {{ _('group') if stats.group_count == 1 else _('groups') }}
         </a>
       </li>
+      {% endif %}
+      {% if 'resources' in selected %}
       <li>
         <i class="fa fa-file fa-3x"></i><br>
         <strong>{{ h.SI_number_span(stats.resource_count) }}</strong>
         {{ _('resource') if stats.resource_count == 1 else _('resources') }}
       </li>
+      {% endif %}
+      {% if 'jupyter' in selected %}
       <li>
         <a href="{{ h.url_for('dataset.search') ~ '?res_format=ipynb' }}">
           <i class="fa fa-code fa-3x"></i><br>
@@ -45,7 +57,8 @@
           {{ _('Jupyter notebook') if stats.jupyter_count == 1 else _('Jupyter notebooks') }}
         </a>
       </li>
-      {% if stats.triples | int >= 0 %}
+      {% endif %}
+      {% if 'triples' in selected %}
       <li>
         <i class="fa fa-{{ h.kg_triple_icon() }} fa-3x"></i><br>
         <strong>{{ h.SI_number_span(stats.triples) }}</strong>

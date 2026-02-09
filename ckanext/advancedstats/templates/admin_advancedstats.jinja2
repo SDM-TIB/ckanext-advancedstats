@@ -1,0 +1,62 @@
+{% extends "admin/base.html" %}
+
+{% import 'macros/form.html' as form %}
+
+{% block primary_content_inner %}
+    {% asset 'advancedstats/admin-css' %}
+
+    <h2>{% trans %}Statistics{% endtrans %}</h2>
+    <div>
+        {% trans %}Select the statistics you would like to show in the main page.{% endtrans %}
+        <form method="POST" action="{{ h.url_for('advancedstats_admin.admin') }}">
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="feature1" name="features" value="datasets">
+                    <label for="feature1">{% trans %}Number of Datasets{% endtrans %}</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="feature2" name="features" value="users">
+                    <label for="feature2">{% trans %}Number of Users{% endtrans %}</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="feature3" name="features" value="organizations">
+                    <label for="feature3">{% trans %}Number of Organizations{% endtrans %}</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="feature4" name="features" value="groups">
+                    <label for="feature4">{% trans %}Number of Groups{% endtrans %}</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="feature5" name="features" value="resources">
+                    <label for="feature5">{% trans %}Number of Resources{% endtrans %}</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="feature6" name="features" value="jupyter">
+                    <label for="feature6">{% trans %}Number of Jupyter Notebooks{% endtrans %}</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="feature7" name="features" value="triples">
+                    <label for="feature7">{% trans %}Number of RDF Triples (requires an extension like ckanext-kgcreation){% endtrans %}</label>
+                </div>
+            </div>
+            <input type="hidden" name="action" value="stats">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" title="{% trans %}Set statistics{% endtrans %}">{% trans %}Update{% endtrans %}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block secondary_content %}
+    <div class="module module-narrow module-shallow">
+        <h2 class="module-heading">
+            <i class="fa fa-info-circle"></i>
+            AdvancedStats
+        </h2>
+        <div class="module-content">
+            <p>{% trans %}Configuration options to manage the advanced stats.{% endtrans %}</p>
+            <p><strong>{% trans %}Statistics{% endtrans %}:</strong> {% trans %}Select the statistics to display.{% endtrans %}</p>
+            <p><strong>{% trans %}Update Frequency{% endtrans %}:</strong> {% trans %}Set how often (in minutes) the statistics are updated.{% endtrans %}</p>
+        </div>
+    </div>
+{% endblock %}

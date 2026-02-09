@@ -1,0 +1,11 @@
+.checkbox-item label {
+  font-weight: normal !important;
+}
+
+.checkbox-item label::after {
+  content: '' !important;
+}
+
+.checkbox-item input {
+  margin-left: 20px;
+}
