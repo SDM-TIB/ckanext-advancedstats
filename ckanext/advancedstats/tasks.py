@@ -5,15 +5,14 @@ from urllib.parse import urlparse
 
 import ckan.logic as logic
 import ckan.model as model
-import redis
 from SPARQLWrapper import SPARQLWrapper, JSON
 from apscheduler.jobstores.base import ConflictingIdError
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.background import BackgroundScheduler
+from ckanext.advancedstats.helpers import acquire_lock, store_value, redis_url, UPDATE_FREQUENCY_KEY
+from ckan.common import config
 
 log = getLogger(__name__)
-redis_url = os.getenv('CKAN_REDIS_URL', 'redis://localhost:6379/0')
-redis_client = redis.from_url(redis_url)
 
 kg_url = os.getenv('CKANEXT__ADVANCEDSTATS__KGURL', None)
 if kg_url is None:
@@ -22,37 +21,6 @@ else:
     sparql = SPARQLWrapper(kg_url)
     sparql.setReturnFormat(JSON)
     sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
-
-interval = int(os.getenv('CKANEXT__ADVANCEDSTATS__INTERVAL', 30))
-
-
-def store_value(key, value):
-    try:
-        redis_client.set(key, value)
-        log.debug(f"Stored key-value pair in Redis: {key} -> {value}")
-    except Exception as e:
-        log.error(f"Error storing value in Redis: {e}")
-
-
-def get_value(key, default_value=None):
-    try:
-        value = redis_client.get(key)
-        if value is not None:
-            value = value.decode('utf-8')  # Decode the byte string to a regular string
-            log.debug(f"Retrieved from Redis: {key} -> {value}")
-            return value
-        else:
-            log.debug(f"Key not found in Redis: {key}")
-            return default_value
-    except Exception as e:
-        log.error(f"Error retrieving value from Redis: {e}")
-        return default_value
-
-
-def acquire_lock(lock_name):
-    lock = redis_client.lock(lock_name, timeout=30)
-    acquired = lock.acquire(blocking=False)
-    return acquired, lock
 
 
 def update_stats():
@@ -106,31 +74,40 @@ class Scheduler:
     instance = None
 
     class __Scheduler:
+        job_id = 'ckanext.advancedstats:update_stats'
+
         def __init__(self):
             redis_url_parsed = urlparse(redis_url)
 
-            scheduler = BackgroundScheduler(jobstores={
-                                                'default': RedisJobStore(
-                                                    jobs_key='apscheduler.jobs',
-                                                    run_times_key='apscheduler.run_times',
-                                                    host=redis_url_parsed.hostname,
-                                                    port=redis_url_parsed.port,
-                                                    db=int(redis_url_parsed.path.replace('/', ''))
-                                                )
-                                            },
-                                            job_defaults={
-                                                'coalesce': True,
-                                                'max_instances': 1,
-                                                'misfire_grace_time': None
-                                            },
-                                            timezone='UTC')
+            self.scheduler = BackgroundScheduler(
+                jobstores={
+                    'default': RedisJobStore(
+                        jobs_key='apscheduler.jobs',
+                        run_times_key='apscheduler.run_times',
+                        host=redis_url_parsed.hostname,
+                        port=redis_url_parsed.port,
+                        db=int(redis_url_parsed.path.replace('/', ''))
+                    )
+                },
+                job_defaults={
+                    'coalesce': True,
+                    'max_instances': 1,
+                    'misfire_grace_time': None
+                },
+                timezone='UTC')
 
-            scheduler.start(paused=True)
+            self.scheduler.start(paused=True)
             try:
-                scheduler.add_job(update_stats, 'interval', minutes=interval, next_run_time=datetime.utcnow() + timedelta(minutes=1), id='ckanext.advancedstats:update_stats')
+                interval = int(config.get(UPDATE_FREQUENCY_KEY))
+                self.scheduler.add_job(update_stats, 'interval', minutes=interval, next_run_time=datetime.utcnow() + timedelta(minutes=1), id=self.job_id)
             except ConflictingIdError:
                 pass
-            scheduler.resume()
+            self.scheduler.resume()
+
+        def update_interval(self):
+            interval = int(config.get(UPDATE_FREQUENCY_KEY))
+            self.scheduler.add_job(update_stats, 'date', run_date=datetime.utcnow())
+            self.scheduler.reschedule_job(self.job_id, trigger='interval', minutes=interval, start_date=datetime.utcnow())
 
     def __new__(cls, *args, **kwargs):
         if not Scheduler.instance:
@@ -142,3 +119,6 @@ class Scheduler:
 
     def __setattr__(self, key, value):
         return setattr(self.instance, key, value)
+
+    def update_interval(self):
+        self.instance.update_interval()

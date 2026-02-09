@@ -1,8 +1,45 @@
+import os
+from logging import getLogger
+
 import ckan.plugins.toolkit as toolkit
+import redis
 from ckan.common import config
-from ckanext.advancedstats.tasks import get_value
+
+log = getLogger(__name__)
+redis_url = os.getenv('CKAN_REDIS_URL', 'redis://localhost:6379/0')
+redis_client = redis.from_url(redis_url)
 
 SELECTED_STATS_KEY = 'ckanext.advancedstats.stats'
+UPDATE_FREQUENCY_KEY = 'ckanext.advancedstats.updatefrequency'
+
+
+def store_value(key, value):
+    try:
+        redis_client.set(key, value)
+        log.debug(f"Stored key-value pair in Redis: {key} -> {value}")
+    except Exception as e:
+        log.error(f"Error storing value in Redis: {e}")
+
+
+def get_value(key, default_value=None):
+    try:
+        value = redis_client.get(key)
+        if value is not None:
+            value = value.decode('utf-8')  # Decode the byte string to a regular string
+            log.debug(f"Retrieved from Redis: {key} -> {value}")
+            return value
+        else:
+            log.debug(f"Key not found in Redis: {key}")
+            return default_value
+    except Exception as e:
+        log.error(f"Error retrieving value from Redis: {e}")
+        return default_value
+
+
+def acquire_lock(lock_name):
+    lock = redis_client.lock(lock_name, timeout=30)
+    acquired = lock.acquire(blocking=False)
+    return acquired, lock
 
 
 def get_advanced_site_statistics():
