@@ -7,7 +7,7 @@
 
     <h2>{% trans %}Statistics{% endtrans %}</h2>
     <div>
-        {% trans %}Select the statistics you would like to show in the main page.{% endtrans %}
+        {% trans %}Select the statistics you would like to display in the main page.{% endtrans %}
         <form method="POST" action="{{ h.url_for('advancedstats_admin.admin') }}">
             <div class="checkbox-group">
                 <div class="checkbox-item">
@@ -55,7 +55,7 @@
         </h2>
         <div class="module-content">
             <p>{% trans %}Configuration options to manage the advanced stats.{% endtrans %}</p>
-            <p><strong>{% trans %}Statistics{% endtrans %}:</strong> {% trans %}Select the statistics to display.{% endtrans %}</p>
+            <p><strong>{% trans %}Statistics{% endtrans %}:</strong> {% trans %}Select the statistics you would like to display in the main page.{% endtrans %}</p>
             <p><strong>{% trans %}Update Frequency{% endtrans %}:</strong> {% trans %}Set how often (in minutes) the statistics are updated.{% endtrans %}</p>
         </div>
     </div>
