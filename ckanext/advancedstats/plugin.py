@@ -25,7 +25,7 @@ class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_resource('static', 'advancedstats')
-        toolkit.add_ckan_admin_tab(config_, 'advancedstats_admin.admin', 'AdvancedStats', icon='chart-line')
+        toolkit.add_ckan_admin_tab(config_, 'advancedstats_admin.admin', 'AdvancedStats', icon=helpers.icon())
 
         if config_.get(SELECTED_STATS_KEY, None) is None:
             config_[SELECTED_STATS_KEY] = 'datasets organizations groups resources'

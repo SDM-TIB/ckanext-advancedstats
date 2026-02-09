@@ -91,6 +91,13 @@ def get_kg_triple_icon():
         return 'sitemap'
 
 
+def icon():
+    if toolkit.check_ckan_version(min_version='2.10'):
+        return 'chart-line'
+    else:
+        return 'line-chart'
+
+
 def get_selected_statistics():
     return config.get(SELECTED_STATS_KEY).split()
 
