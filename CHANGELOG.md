@@ -1,5 +1,14 @@
 # Changelog
 
+# v0.6.0 - 2026-02-09
+- Add admin panel to configure
+  - Statistics to be displayed,
+  - Update frequency, and
+  - Knowledge graph URL
+- Set width of statistics based on the number of statistics displayed
+- Refactor code base
+- Update German translation
+
 # v0.5.1 - 2026-02-05
 - Update German translation
 
