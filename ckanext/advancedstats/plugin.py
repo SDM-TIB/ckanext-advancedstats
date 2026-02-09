@@ -2,38 +2,13 @@ from logging import getLogger
 
 import ckan.plugins as p
 import ckan.plugins.toolkit as toolkit
+import ckanext.advancedstats.helpers as helpers
 import ckanext.advancedstats.views as views
-from ckan.common import config
 from ckan.lib.plugins import DefaultTranslation
-from ckanext.advancedstats.controller import SELECTED_STATS_KEY
-
-from .tasks import Scheduler, get_value
+from ckanext.advancedstats.helpers import SELECTED_STATS_KEY
+from ckanext.advancedstats.tasks import Scheduler
 
 log = getLogger(__name__)
-
-
-def get_advanced_site_statistics():
-    return {
-        'dataset_count': get_value('ckanext.advancedstats.dataset_count', -1),
-        'group_count': get_value('ckanext.advancedstats.group_count', -1),
-        'organization_count': get_value('ckanext.advancedstats.organization_count', -1),
-        'resource_count': get_value('ckanext.advancedstats.resource_count', -1),
-        'jupyter_count': get_value('ckanext.advancedstats.jupyter_count', -1),
-        'triples': get_value('ckanext.advancedstats.triples', -1),
-        'datetime': get_value('ckanext.advancedstats.datetime', '-1'),
-        'user_count': get_value('ckanext.advancedstats.user_count', -1)
-    }
-
-
-def get_kg_triple_icon():
-    if toolkit.check_ckan_version(min_version='2.10'):
-        return 'project-diagram'
-    else:
-        return 'sitemap'
-
-
-def get_selected_statistics():
-    return config.get(SELECTED_STATS_KEY).split()
 
 
 class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
@@ -68,7 +43,7 @@ class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
 
     def get_helpers(self):
         return {
-            'advanced_stats': get_advanced_site_statistics,
-            'kg_triple_icon': get_kg_triple_icon,
-            'selected_stats': get_selected_statistics
+            'advanced_stats': helpers.get_advanced_site_statistics,
+            'kg_triple_icon': helpers.get_kg_triple_icon,
+            'selected_stats': helpers.get_selected_statistics
         }

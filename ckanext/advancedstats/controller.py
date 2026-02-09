@@ -5,12 +5,11 @@ import ckan.logic as logic
 import ckan.model as model
 from ckan.common import request
 from ckan.plugins import toolkit
+from ckanext.advancedstats.helpers import SELECTED_STATS_KEY
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
-
-SELECTED_STATS_KEY = 'ckanext.advancedstats.stats'
 
 
 class AdvancedStatsController:
