@@ -6,6 +6,8 @@
   list-style: none;
   display: flex;
   align-items: center;
+  margin-top: 10px;
+  padding-left: 0 !important;
 }
 
 .homepage .module-stats .card ul li {
