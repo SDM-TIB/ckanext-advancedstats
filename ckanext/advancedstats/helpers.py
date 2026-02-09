@@ -1,16 +1,21 @@
 import os
+import socket
 from logging import getLogger
+from urllib.error import URLError, HTTPError
 
 import ckan.plugins.toolkit as toolkit
 import redis
+from SPARQLWrapper import SPARQLWrapper, JSON
 from ckan.common import config
 
 log = getLogger(__name__)
 redis_url = os.getenv('CKAN_REDIS_URL', 'redis://localhost:6379/0')
 redis_client = redis.from_url(redis_url)
+sparql = None
 
 SELECTED_STATS_KEY = 'ckanext.advancedstats.stats'
 UPDATE_FREQUENCY_KEY = 'ckanext.advancedstats.updatefrequency'
+KG_URL_KEY = 'ckanext.advancedstats.kg'
 
 
 def store_value(key, value):
@@ -42,6 +47,30 @@ def acquire_lock(lock_name):
     return acquired, lock
 
 
+def endpoint_accessible(url):
+    sparql = SPARQLWrapper(url)
+    sparql.setTimeout(5)
+    sparql.setReturnFormat(JSON)
+    sparql.setQuery("ASK { ?s ?p ?o }")  # cheap sanity query (may still be denied by some endpoints)
+
+    try:
+        r = sparql.query().convert()
+        return bool(r.get("boolean", True))
+    except (HTTPError, URLError, socket.timeout, Exception):
+        return False
+
+
+def init_sparql():
+    global sparql
+    kg_url = config.get(KG_URL_KEY, None)
+    if kg_url is None:
+        sparql = None
+    else:
+        sparql = SPARQLWrapper(kg_url)
+        sparql.setReturnFormat(JSON)
+        sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
+
+
 def get_advanced_site_statistics():
     return {
         'dataset_count': get_value('ckanext.advancedstats.dataset_count', -1),
@@ -64,3 +93,6 @@ def get_kg_triple_icon():
 
 def get_selected_statistics():
     return config.get(SELECTED_STATS_KEY).split()
+
+
+init_sparql()

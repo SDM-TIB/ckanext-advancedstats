@@ -1,26 +1,17 @@
-import os
 from datetime import datetime, timedelta
 from logging import getLogger
 from urllib.parse import urlparse
 
 import ckan.logic as logic
 import ckan.model as model
-from SPARQLWrapper import SPARQLWrapper, JSON
+import ckanext.advancedstats.helpers as helpers
 from apscheduler.jobstores.base import ConflictingIdError
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.background import BackgroundScheduler
-from ckanext.advancedstats.helpers import acquire_lock, store_value, redis_url, UPDATE_FREQUENCY_KEY
 from ckan.common import config
+from ckanext.advancedstats.helpers import acquire_lock, store_value, redis_url, UPDATE_FREQUENCY_KEY
 
 log = getLogger(__name__)
-
-kg_url = os.getenv('CKANEXT__ADVANCEDSTATS__KGURL', None)
-if kg_url is None:
-    sparql = None
-else:
-    sparql = SPARQLWrapper(kg_url)
-    sparql.setReturnFormat(JSON)
-    sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
 
 
 def update_stats():
@@ -49,10 +40,10 @@ def update_stats():
                 .all()
             store_value('ckanext.advancedstats.user_count', len(users))
 
-            if sparql is not None:
+            if helpers.sparql is not None:
                 triples = 0
                 try:
-                    res = sparql.queryAndConvert()
+                    res = helpers.sparql.queryAndConvert()
                     for r in res['results']['bindings']:
                         triples = r['count']['value']
                 except Exception as e:

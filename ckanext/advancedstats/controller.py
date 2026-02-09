@@ -5,7 +5,7 @@ import ckan.logic as logic
 import ckan.model as model
 from ckan.common import config, request
 from ckan.plugins import toolkit
-from ckanext.advancedstats.helpers import SELECTED_STATS_KEY, UPDATE_FREQUENCY_KEY
+from ckanext.advancedstats.helpers import SELECTED_STATS_KEY, UPDATE_FREQUENCY_KEY, KG_URL_KEY, endpoint_accessible, init_sparql
 from ckanext.advancedstats.tasks import Scheduler
 
 logger = logging.getLogger(__name__)
@@ -66,9 +66,23 @@ class AdvancedStatsController:
                     toolkit.h.flash_success(toolkit._('Update frequency has been updated successfully.'))
                 except ValueError:
                     toolkit.h.flash_error(toolkit._('The update frequency is specified in full minutes. Please, provide input that can be parsed as an integer.'))
+            elif action == 'kgurl':
+                kg_url = request.form.get('kg_url')
+
+                if endpoint_accessible(kg_url):
+                    logic.get_action(u'config_option_update')({
+                        u'user': toolkit.c.user
+                    }, {
+                        KG_URL_KEY: kg_url
+                    })
+                    toolkit.h.flash_success(toolkit._('Knowledge graph URL has been updated successfully.'))
+                    init_sparql()
+                else:
+                    toolkit.h.flash_error(toolkit._('The knowledge graph is not accessible, the configuration was not updated.'))
 
         return toolkit.render('admin_advancedstats.jinja2',
                               extra_vars={
                                   'stats': config.get(SELECTED_STATS_KEY).split(),
-                                  'freq': config.get(UPDATE_FREQUENCY_KEY)
+                                  'freq': config.get(UPDATE_FREQUENCY_KEY),
+                                  'kg_url': config.get(KG_URL_KEY, None)
                               })
