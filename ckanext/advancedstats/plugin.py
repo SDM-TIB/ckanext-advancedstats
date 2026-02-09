@@ -1,3 +1,4 @@
+import os
 from logging import getLogger
 
 import ckan.plugins as p
@@ -29,7 +30,15 @@ class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
         if config_.get(SELECTED_STATS_KEY, None) is None:
             config_[SELECTED_STATS_KEY] = 'datasets organizations groups resources'
         if config_.get(UPDATE_FREQUENCY_KEY, None) is None:
-            config_[UPDATE_FREQUENCY_KEY] = 30
+            freq = os.getenv('CKANEXT__ADVANCEDSTATS__INTERVAL', None)
+            if freq is not None:
+                config_[UPDATE_FREQUENCY_KEY] = freq
+            else:
+                config_[UPDATE_FREQUENCY_KEY] = 30
+        if config_.get(KG_URL_KEY, None) is None:
+            kg_url = os.getenv('CKANEXT__ADVANCEDSTATS__KGURL', None)
+            if kg_url is not None:
+                config_[KG_URL_KEY] = kg_url
 
         self.scheduler = Scheduler()
 
