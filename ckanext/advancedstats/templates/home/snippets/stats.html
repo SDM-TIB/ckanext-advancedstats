@@ -1,6 +1,6 @@
-{% set stats = h.advanced_stats() %}
-{% set selected = h.selected_stats() %}
-{% set stat_width = h.stat_width() %}
+{% set stats = h.advancedstats_stats() %}
+{% set selected = h.advancedstats_selected_stats() %}
+{% set stat_width = h.advancedstats_stat_width() %}
 {% asset 'advancedstats/main' %}
 
 <div class="module-stats">
@@ -61,7 +61,7 @@
       {% endif %}
       {% if 'triples' in selected %}
       <li class="{{ stat_width }}">
-        <i class="fa fa-{{ h.kg_triple_icon() }} fa-3x"></i><br>
+        <i class="fa fa-{{ h.advancedstats_kg_triple_icon() }} fa-3x"></i><br>
         <strong>{{ h.SI_number_span(stats.triples) }}</strong>
         {{ _('RDF triple') if stats.triples == 1 else _('RDF triples') }}
       </li>

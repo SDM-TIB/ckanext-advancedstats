@@ -58,8 +58,8 @@ class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
 
     def get_helpers(self):
         return {
-            'advanced_stats': helpers.get_advanced_site_statistics,
-            'kg_triple_icon': helpers.get_kg_triple_icon,
-            'selected_stats': helpers.get_selected_statistics,
-            'stat_width': helpers.width
+            'advancedstats_stats': helpers.get_advanced_site_statistics,
+            'advancedstats_kg_triple_icon': helpers.get_kg_triple_icon,
+            'advancedstats_selected_stats': helpers.get_selected_statistics,
+            'advancedstats_stat_width': helpers.width
         }
