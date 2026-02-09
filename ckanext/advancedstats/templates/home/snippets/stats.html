@@ -1,5 +1,6 @@
 {% set stats = h.advanced_stats() %}
 {% set selected = h.selected_stats() %}
+{% set stat_width = h.stat_width() %}
 {% asset 'advancedstats/main' %}
 
 <div class="module-stats">
@@ -7,7 +8,7 @@
     <ul>
       {% block stats_group %}
       {% if 'datasets' in selected %}
-      <li>
+      <li class="{{ stat_width }}">
         <a href="{{ h.url_for('dataset.search') }}">
           <i class="fa fa-database fa-3x"></i><br>
           <strong>{{ h.SI_number_span(stats.dataset_count) }}</strong>
@@ -16,7 +17,7 @@
       </li>
       {% endif %}
       {% if 'users' in selected %}
-      <li>
+      <li class="{{ stat_width }}">
         <a href="{{ h.url_for('user.index') }}">
           <i class="fa fa-user fa-3x"></i><br>
           <strong>{{ h.SI_number_span(stats.user_count) }}</strong>
@@ -25,7 +26,7 @@
       </li>
       {% endif %}
       {% if 'organizations' in selected %}
-      <li>
+      <li class="{{ stat_width }}">
         <a href="{{ h.url_for('organization.index') }}">
           <i class="fa fa-building fa-3x"></i><br>
           <strong>{{ h.SI_number_span(stats.organization_count) }}</strong>
@@ -34,7 +35,7 @@
       </li>
       {% endif %}
       {% if 'groups' in selected %}
-      <li>
+      <li class="{{ stat_width }}">
         <a href="{{ h.url_for('group.index') }}">
           <i class="fa fa-folder-open fa-3x"></i><br>
           <strong>{{ h.SI_number_span(stats.group_count) }}</strong>
@@ -43,14 +44,14 @@
       </li>
       {% endif %}
       {% if 'resources' in selected %}
-      <li>
+      <li class="{{ stat_width }}">
         <i class="fa fa-file fa-3x"></i><br>
         <strong>{{ h.SI_number_span(stats.resource_count) }}</strong>
         {{ _('resource') if stats.resource_count == 1 else _('resources') }}
       </li>
       {% endif %}
       {% if 'jupyter' in selected %}
-      <li>
+      <li class="{{ stat_width }}">
         <a href="{{ h.url_for('dataset.search') ~ '?res_format=ipynb' }}">
           <i class="fa fa-code fa-3x"></i><br>
           <strong>{{ h.SI_number_span(stats.jupyter_count) }}</strong>
@@ -59,7 +60,7 @@
       </li>
       {% endif %}
       {% if 'triples' in selected %}
-      <li>
+      <li class="{{ stat_width }}">
         <i class="fa fa-{{ h.kg_triple_icon() }} fa-3x"></i><br>
         <strong>{{ h.SI_number_span(stats.triples) }}</strong>
         {{ _('RDF triple') if stats.triples == 1 else _('RDF triples') }}

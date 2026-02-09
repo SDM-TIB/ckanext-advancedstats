@@ -98,6 +98,20 @@ def icon():
         return 'line-chart'
 
 
+def width():
+    length = len(get_selected_statistics())
+    mapping = {
+        1: "w100",
+        2: "w50",
+        3: "w33",
+        4: "w25",
+        5: "w20",
+        6: "w16",
+        7: "w14",
+    }
+    return mapping[length]
+
+
 def get_selected_statistics():
     return config.get(SELECTED_STATS_KEY).split()
 

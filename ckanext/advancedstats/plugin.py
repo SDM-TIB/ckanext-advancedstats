@@ -60,5 +60,6 @@ class AdvancedStats(p.SingletonPlugin, DefaultTranslation):
         return {
             'advanced_stats': helpers.get_advanced_site_statistics,
             'kg_triple_icon': helpers.get_kg_triple_icon,
-            'selected_stats': helpers.get_selected_statistics
+            'selected_stats': helpers.get_selected_statistics,
+            'stat_width': helpers.width
         }

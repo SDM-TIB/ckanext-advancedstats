@@ -11,7 +11,34 @@
 }
 
 .homepage .module-stats .card ul li {
-  width: 20% !important;
   text-align: center;
   color: var(--bs-blue, #206b82);
+}
+
+.w100 {
+  width: 100% !important;
+}
+
+.w50 {
+  width: 50% !important;
+}
+
+.w33 {
+  width: 33.33% !important;
+}
+
+.w25 {
+  width: 25% !important;
+}
+
+.w20 {
+  width: 20% !important;
+}
+
+.w16 {
+  width: 16.67% !important;
+}
+
+.w14 {
+  width: 14.29% !important;
 }
