@@ -28,17 +28,23 @@ pip install -r ./ckanext-advancedstats/requirements.txt
 
 After installing the plugin, add `advancedstats` to the plugins in your `ckan.ini`.
 
-If you want to include the number of RDF triples in the knowledge graph containing the metadata of your CKAN instance, set the environment variable `CKANEXT__ADVANCEDSTATS__KGURL` to the URL where your knowledge graph answers SPARQL queries, e.g.:
+## Configuration Options
 
-```bash
-CKANEXT__ADVANCEDSTATS__KGURL=https://www.your-site.tld/kg/sparql
-```
+- `ckanext.advancedstats.stats` the statistics to display in the main page
+  - Default: `datasets organizations groups resources`
+- `ckanext.advancedstats.updatefrequency` the update frequency in minutes
+  - Default: `30`
+  - For backwards compatibility, the default can also be set with the environment variable `CKANEXT__ADVANCEDSTATS__INTERVAL`, e.g.:
+    ```bash
+    CKANEXT__ADVANCEDSTATS__INTERVAL=30
+    ```
+- `ckanext.advancedstats.kg` to include the number of RDF triples in the knowledge graph containing the metadata of your CKAN instance
+  - For backwards compatibility, this can also be set with the environment variable `CKANEXT__ADVANCEDSTATS__KGURL`, e.g.:
+    ```bash
+    CKANEXT__ADVANCEDSTATS__KGURL=https://www.your-site.tld/kg/sparql
+    ```
 
-`ckanext-advancedstats` stores the statistics in Redis and updates them periodically. The default interval is 30 minutes and can be configured via the environment variable `CKANEXT__ADVANCEDSTATS__INTERVAL`, e.g.:
-
-```bash
-CKANEXT__ADVANCEDSTATS__INTERVAL=30
-```
+The configuration options mentioned above can also be configured using the admin interface provided by the extension.
 
 The connection string for Redis is read from the CKAN configuration option `CKAN_REDIS_URL` which should already be set in most CKAN instances.
 
