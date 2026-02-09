@@ -11,31 +11,31 @@
         <form method="POST" action="{{ h.url_for('advancedstats_admin.admin') }}">
             <div class="checkbox-group">
                 <div class="checkbox-item">
-                    <input type="checkbox" id="feature1" name="features" value="datasets">
+                    <input type="checkbox" id="feature1" name="features" value="datasets"{% if 'datasets' in stats %} checked{% endif %}>
                     <label for="feature1">{% trans %}Number of Datasets{% endtrans %}</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="feature2" name="features" value="users">
+                    <input type="checkbox" id="feature2" name="features" value="users"{% if 'users' in stats %} checked{% endif %}>
                     <label for="feature2">{% trans %}Number of Users{% endtrans %}</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="feature3" name="features" value="organizations">
+                    <input type="checkbox" id="feature3" name="features" value="organizations"{% if 'organizations' in stats %} checked{% endif %}>
                     <label for="feature3">{% trans %}Number of Organizations{% endtrans %}</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="feature4" name="features" value="groups">
+                    <input type="checkbox" id="feature4" name="features" value="groups"{% if 'groups' in stats %} checked{% endif %}>
                     <label for="feature4">{% trans %}Number of Groups{% endtrans %}</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="feature5" name="features" value="resources">
+                    <input type="checkbox" id="feature5" name="features" value="resources"{% if 'resources' in stats %} checked{% endif %}>
                     <label for="feature5">{% trans %}Number of Resources{% endtrans %}</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="feature6" name="features" value="jupyter">
+                    <input type="checkbox" id="feature6" name="features" value="jupyter"{% if 'jupyter' in stats %} checked{% endif %}>
                     <label for="feature6">{% trans %}Number of Jupyter Notebooks{% endtrans %}</label>
                 </div>
                 <div class="checkbox-item">
-                    <input type="checkbox" id="feature7" name="features" value="triples">
+                    <input type="checkbox" id="feature7" name="features" value="triples"{% if 'triples' in stats %} checked{% endif %}>
                     <label for="feature7">{% trans %}Number of RDF Triples (requires an extension like ckanext-kgcreation){% endtrans %}</label>
                 </div>
             </div>

@@ -69,5 +69,6 @@ class AdvancedStatsController:
 
         return toolkit.render('admin_advancedstats.jinja2',
                               extra_vars={
+                                  'stats': config.get(SELECTED_STATS_KEY).split(),
                                   'freq': config.get(UPDATE_FREQUENCY_KEY)
                               })
