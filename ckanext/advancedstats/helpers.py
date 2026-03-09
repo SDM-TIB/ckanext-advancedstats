@@ -108,7 +108,7 @@ def width():
         6: "w16",
         7: "w14",
     }
-    return mapping[length]
+    return mapping.get(length, "w14")
 
 
 def get_selected_statistics():
