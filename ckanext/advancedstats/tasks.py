@@ -32,13 +32,13 @@ def update_stats():
                 .filter(model.Package.private == False) \
                 .filter(model.Resource.state == 'active')
 
-            store_value('ckanext.advancedstats.resource_count', len(q_res.all()))
-            store_value('ckanext.advancedstats.jupyter_count', len(q_res.filter(getattr(model.Resource, 'url').ilike('%' + '.ipynb')).all()))
+            store_value('ckanext.advancedstats.resource_count', q_res.count())
+            store_value('ckanext.advancedstats.jupyter_count', q_res.filter(getattr(model.Resource, 'url').ilike('%' + '.ipynb')).count())
 
             users = model.Session.query(model.User) \
                 .filter(model.User.state == 'active') \
-                .all()
-            store_value('ckanext.advancedstats.user_count', len(users))
+                .count()
+            store_value('ckanext.advancedstats.user_count', users)
 
             sparql = helpers.get_sparql()
             if sparql is not None:
