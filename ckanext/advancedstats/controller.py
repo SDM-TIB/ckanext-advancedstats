@@ -6,7 +6,7 @@ import ckan.model as model
 from ckan.common import config, request
 from ckan.plugins import toolkit
 from ckanext.advancedstats.helpers import SELECTED_STATS_KEY, UPDATE_FREQUENCY_KEY, KG_URL_KEY, endpoint_accessible, init_sparql
-from ckanext.advancedstats.tasks import Scheduler
+from ckanext.advancedstats.tasks import Scheduler, update_stats
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -79,6 +79,12 @@ class AdvancedStatsController:
                     init_sparql()
                 else:
                     toolkit.h.flash_error(toolkit._('The knowledge graph is not accessible, the configuration was not updated.'))
+            elif action == 'runnow':
+                try:
+                    update_stats()
+                    toolkit.h.flash_success(toolkit._('Statistics updated successfully.'))
+                except Exception as e:
+                    toolkit.h.flash_error(toolkit._('Failed to update statistics: {}').format(str(e)))
 
         return toolkit.render('admin_advancedstats.jinja2',
                               extra_vars={
