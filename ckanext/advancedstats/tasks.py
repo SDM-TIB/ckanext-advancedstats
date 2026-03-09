@@ -9,14 +9,19 @@ from apscheduler.jobstores.base import ConflictingIdError
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.background import BackgroundScheduler
 from ckan.common import config
-from ckanext.advancedstats.helpers import acquire_lock, store_value, redis_url, UPDATE_FREQUENCY_KEY
+from ckanext.advancedstats.helpers import acquire_lock, store_value, set_cooldown, clear_cooldown, is_cooling_down, redis_url, UPDATE_FREQUENCY_KEY
 
 log = getLogger(__name__)
 
 
-def update_stats():
+def update_stats(force=False):
+    if not force and is_cooling_down():
+        log.debug('Task execution skipped, cooldown is still active.')
+        return
+
     acquired, lock = acquire_lock('update_stats_lock')
     if acquired:
+        start_time = datetime.utcnow()
         try:
             log.info('Updating the statistics for the landing page')
 
@@ -53,9 +58,13 @@ def update_stats():
                 triples = -1
             store_value('ckanext.advancedstats.triples', triples)
             store_value('ckanext.advancedstats.datetime', datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
+
+            elapsed_seconds = (datetime.utcnow() - start_time).total_seconds()
+            interval_seconds = int(config.get(UPDATE_FREQUENCY_KEY)) * 60
+            cooldown_ttl = int(0.9 * interval_seconds - elapsed_seconds)
+            log.debug(f'Job took {elapsed_seconds:.1f}s, setting cooldown to {cooldown_ttl}s (interval: {interval_seconds}s)')
+            set_cooldown(cooldown_ttl)
         finally:
-            import time
-            time.sleep(20)  # wait a moment before releasing the lock in order to catch some of the other workers
             lock.release()
             log.debug('Task execution complete, lock released.')
     else:
@@ -98,6 +107,7 @@ class Scheduler:
 
         def update_interval(self):
             interval = int(config.get(UPDATE_FREQUENCY_KEY))
+            clear_cooldown()
             self.scheduler.add_job(update_stats, 'date', run_date=datetime.utcnow())
             self.scheduler.reschedule_job(self.job_id, trigger='interval', minutes=interval, start_date=datetime.utcnow())
 

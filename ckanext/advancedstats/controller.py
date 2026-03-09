@@ -80,7 +80,7 @@ class AdvancedStatsController:
                     toolkit.h.flash_error(toolkit._('The knowledge graph is not accessible, the configuration was not updated.'))
             elif action == 'runnow':
                 try:
-                    update_stats()
+                    update_stats(force=True)
                     toolkit.h.flash_success(toolkit._('Statistics updated successfully.'))
                 except Exception as e:
                     toolkit.h.flash_error(toolkit._('Failed to update statistics: {}').format(str(e)))

@@ -15,6 +15,7 @@ redis_client = redis.from_url(redis_url)
 SELECTED_STATS_KEY = 'ckanext.advancedstats.stats'
 UPDATE_FREQUENCY_KEY = 'ckanext.advancedstats.updatefrequency'
 KG_URL_KEY = 'ckanext.advancedstats.kg'
+COOLDOWN_KEY = 'ckanext.advancedstats.cooldown'
 
 
 def store_value(key, value):
@@ -44,6 +45,32 @@ def acquire_lock(lock_name):
     lock = redis_client.lock(lock_name, timeout=30)
     acquired = lock.acquire(blocking=False)
     return acquired, lock
+
+
+def set_cooldown(ttl_seconds):
+    """Set a cooldown flag that expires after ttl_seconds."""
+    try:
+        if ttl_seconds > 0:
+            redis_client.set(COOLDOWN_KEY, '1', ex=ttl_seconds)
+    except Exception as e:
+        log.error(f"Error setting cooldown in Redis: {e}")
+
+
+def clear_cooldown():
+    """Remove the cooldown flag immediately."""
+    try:
+        redis_client.delete(COOLDOWN_KEY)
+    except Exception as e:
+        log.error(f"Error clearing cooldown in Redis: {e}")
+
+
+def is_cooling_down():
+    """Returns True if a cooldown is still active."""
+    try:
+        return redis_client.exists(COOLDOWN_KEY) > 0
+    except Exception as e:
+        log.error(f"Error checking cooldown in Redis: {e}")
+        return False
 
 
 def endpoint_accessible(url):
