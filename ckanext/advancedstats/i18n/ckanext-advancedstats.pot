@@ -7,11 +7,11 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ckanext-advancedstats 0.6.0\n"
+"Project-Id-Version: ckanext-advancedstats 0.7.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-09 12:52+0100\n"
+"POT-Creation-Date: 2026-03-09 10:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Philipp D. Rohde <EMAIL@ADDRESS>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -50,17 +50,25 @@ msgstr ""
 msgid "Knowledge graph URL has been updated successfully."
 msgstr ""
 
-#: ckanext/advancedstats/controller.py:81
+#: ckanext/advancedstats/controller.py:80
 msgid "The knowledge graph is not accessible, the configuration was not updated."
 msgstr ""
 
+#: ckanext/advancedstats/controller.py:84
+msgid "Statistics updated successfully."
+msgstr ""
+
+#: ckanext/advancedstats/controller.py:86
+msgid "Failed to update statistics: {}"
+msgstr ""
+
 #: ckanext/advancedstats/templates/admin_advancedstats.jinja2:8
-#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:84
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:98
 msgid "Statistics"
 msgstr ""
 
 #: ckanext/advancedstats/templates/admin_advancedstats.jinja2:10
-#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:84
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:98
 msgid "Select the statistics you would like to display in the main page."
 msgstr ""
 
@@ -104,12 +112,12 @@ msgid "Update"
 msgstr ""
 
 #: ckanext/advancedstats/templates/admin_advancedstats.jinja2:50
-#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:85
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:99
 msgid "Update Frequency"
 msgstr ""
 
 #: ckanext/advancedstats/templates/admin_advancedstats.jinja2:52
-#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:85
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:99
 msgid "Set how often (in minutes) the statistics are updated."
 msgstr ""
 
@@ -128,12 +136,12 @@ msgstr ""
 
 #: ckanext/advancedstats/templates/admin_advancedstats.jinja2:63
 #: ckanext/advancedstats/templates/admin_advancedstats.jinja2:67
-#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:86
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:100
 msgid "Knowledge Graph URL"
 msgstr ""
 
 #: ckanext/advancedstats/templates/admin_advancedstats.jinja2:65
-#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:86
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:100
 #, python-format
 msgid ""
 "Set the URL under which your knowledge graph is accessible. This requires an "
@@ -144,71 +152,97 @@ msgstr ""
 msgid "e.g., http://ldm_kg:8890/sparql"
 msgstr ""
 
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:76
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:101
+msgid "Manual Update"
+msgstr ""
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:78
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:101
+msgid ""
+"Trigger a statistics update immediately, without waiting for the next "
+"scheduled run."
+msgstr ""
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:82
+msgid "Run statistics update now"
+msgstr ""
+
 #: ckanext/advancedstats/templates/admin_advancedstats.jinja2:83
+msgid "Run now"
+msgstr ""
+
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:97
 msgid "Configuration options to manage the advanced stats."
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:14
+#: ckanext/advancedstats/templates/admin_advancedstats.jinja2:101
+msgid ""
+"If another worker is already collecting statistics, the request will be "
+"skipped."
+msgstr ""
+
+#: ckanext/advancedstats/templates/home/snippets/stats.html:15
 msgid "dataset"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:14
+#: ckanext/advancedstats/templates/home/snippets/stats.html:15
 msgid "datasets"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:23
+#: ckanext/advancedstats/templates/home/snippets/stats.html:24
 msgid "user"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:23
+#: ckanext/advancedstats/templates/home/snippets/stats.html:24
 msgid "users"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:32
+#: ckanext/advancedstats/templates/home/snippets/stats.html:33
 msgid "organization"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:32
+#: ckanext/advancedstats/templates/home/snippets/stats.html:33
 msgid "organizations"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:41
+#: ckanext/advancedstats/templates/home/snippets/stats.html:42
 msgid "group"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:41
+#: ckanext/advancedstats/templates/home/snippets/stats.html:42
 msgid "groups"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:49
+#: ckanext/advancedstats/templates/home/snippets/stats.html:50
 msgid "resource"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:49
+#: ckanext/advancedstats/templates/home/snippets/stats.html:50
 msgid "resources"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:57
+#: ckanext/advancedstats/templates/home/snippets/stats.html:58
 msgid "Jupyter notebook"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:57
+#: ckanext/advancedstats/templates/home/snippets/stats.html:58
 msgid "Jupyter notebooks"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:65
+#: ckanext/advancedstats/templates/home/snippets/stats.html:66
 msgid "RDF triple"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:65
+#: ckanext/advancedstats/templates/home/snippets/stats.html:66
 msgid "RDF triples"
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:73
+#: ckanext/advancedstats/templates/home/snippets/stats.html:74
 msgid "Statistics not yet collected."
 msgstr ""
 
-#: ckanext/advancedstats/templates/home/snippets/stats.html:100
+#: ckanext/advancedstats/templates/home/snippets/stats.html:101
 msgid "Last updated:"
 msgstr ""
 
