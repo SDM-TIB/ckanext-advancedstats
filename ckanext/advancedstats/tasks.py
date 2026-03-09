@@ -40,10 +40,11 @@ def update_stats():
                 .all()
             store_value('ckanext.advancedstats.user_count', len(users))
 
-            if helpers.sparql is not None:
+            sparql = helpers.get_sparql()
+            if sparql is not None:
                 triples = 0
                 try:
-                    res = helpers.sparql.queryAndConvert()
+                    res = sparql.queryAndConvert()
                     for r in res['results']['bindings']:
                         triples = r['count']['value']
                 except Exception as e:

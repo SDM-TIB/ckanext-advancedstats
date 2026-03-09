@@ -5,7 +5,7 @@ import ckan.logic as logic
 import ckan.model as model
 from ckan.common import config, request
 from ckan.plugins import toolkit
-from ckanext.advancedstats.helpers import SELECTED_STATS_KEY, UPDATE_FREQUENCY_KEY, KG_URL_KEY, endpoint_accessible, init_sparql
+from ckanext.advancedstats.helpers import SELECTED_STATS_KEY, UPDATE_FREQUENCY_KEY, KG_URL_KEY, endpoint_accessible
 from ckanext.advancedstats.tasks import Scheduler, update_stats
 
 logger = logging.getLogger(__name__)
@@ -76,7 +76,6 @@ class AdvancedStatsController:
                         KG_URL_KEY: kg_url
                     })
                     toolkit.h.flash_success(toolkit._('Knowledge graph URL has been updated successfully.'))
-                    init_sparql()
                 else:
                     toolkit.h.flash_error(toolkit._('The knowledge graph is not accessible, the configuration was not updated.'))
             elif action == 'runnow':

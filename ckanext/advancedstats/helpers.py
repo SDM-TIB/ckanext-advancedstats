@@ -11,7 +11,6 @@ from ckan.common import config
 log = getLogger(__name__)
 redis_url = os.getenv('CKAN_REDIS_URL', 'redis://localhost:6379/0')
 redis_client = redis.from_url(redis_url)
-sparql = None
 
 SELECTED_STATS_KEY = 'ckanext.advancedstats.stats'
 UPDATE_FREQUENCY_KEY = 'ckanext.advancedstats.updatefrequency'
@@ -60,8 +59,7 @@ def endpoint_accessible(url):
         return False
 
 
-def init_sparql():
-    global sparql
+def get_sparql():
     kg_url = config.get(KG_URL_KEY, None)
     if kg_url is None:
         sparql = None
@@ -69,6 +67,7 @@ def init_sparql():
         sparql = SPARQLWrapper(kg_url)
         sparql.setReturnFormat(JSON)
         sparql.setQuery('SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }')
+    return sparql
 
 
 def get_advanced_site_statistics():
@@ -114,6 +113,3 @@ def width():
 
 def get_selected_statistics():
     return config.get(SELECTED_STATS_KEY).split()
-
-
-init_sparql()
