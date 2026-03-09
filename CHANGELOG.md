@@ -1,5 +1,13 @@
 # Changelog
 
+# v0.7.0 - 2026-03-09
+- Add "run now" button for manual updates to admin panel
+- No longer keeping a global `sparql` object
+- Direct use of `query.count()` for CKAN DB queries
+- Add fallback for the width mapping
+- Add graceful cooldown instead of the fixed time sleep
+- Update German translation
+
 # v0.6.0 - 2026-02-09
 - Add admin panel to configure
   - Statistics to be displayed,
